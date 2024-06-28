@@ -88,6 +88,8 @@
         crossorigin="anonymous"></script>
 
     <!-- Custom Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <script>
         $(document).ready(function () {
             set_temp();
@@ -100,7 +102,7 @@
                 url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
                 data: {},
                 success: function (response) {
-                    $('#temp').text(response['temp']);
+                    $('#temp').text(response['temp'])
                 }
             });
         }
@@ -117,9 +119,7 @@
                 },
                 success: function (response) {
                     alert(response['msg']);
-                    show_comment(); // Refresh comments after saving
-                    $('#floatingInput').val(''); // Clear input fields
-                    $('#floatingTextarea').val('');
+                    window.location.reload();
                 }
             });
         }
@@ -132,9 +132,9 @@
                 data: {},
                 success: function (response) {
                     let messages = response['messages'];
-                    messages.forEach(function (message) {
-                        let name = message['name'];
-                        let comment = message['comment'];
+                    for (let i = 0; i < messages.length; i++) {
+                        let name = messages[i]['name'];
+                        let comment = messages[i]['comment'];
                         let temp_html = `
                             <div class="card">
                                 <div class="card-body">
@@ -146,7 +146,7 @@
                             </div>
                         `;
                         $('#comment-list').append(temp_html);
-                    });
+                    }
                 }
             });
         }
